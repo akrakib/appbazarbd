@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AppBazarBD - আপনার ডিজিটাল বাজার</title>
+<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Exo+2:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root {
+  --blue:#1565C0;--blue-light:#42A5F5;--green:#2E7D32;--green-light:#66BB6A;
+  --accent:#00E5FF;--dark:#0A0E1A;--dark2:#111827;--card:#151D2E;--card2:#1C2740;
+  --border:rgba(66,165,245,0.18);--text:#E3EEFF;--muted:#8BA3C7;
+  --glow-blue:rgba(21,101,192,0.45);--glow-green:rgba(46,125,50,0.35);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Hind Siliguri',sans-serif;background:var(--dark);color:var(--text);overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 80% 60% at 10% 20%,rgba(21,101,192,0.12) 0%,transparent 60%),radial-gradient(ellipse 60% 50% at 90% 80%,rgba(46,125,50,0.10) 0%,transparent 60%);pointer-events:none;z-index:0}
+
+/* NOTICE */
+.notice-bar{background:linear-gradient(90deg,rgba(21,101,192,0.3),rgba(46,125,50,0.25),rgba(21,101,192,0.3));border-bottom:1px solid rgba(66,165,245,0.2);padding:8px 2rem;text-align:center;font-size:0.85rem;color:var(--accent);position:fixed;top:0;left:0;right:0;z-index:1001}
+
+/* NAV */
+nav{position:fixed;top:36px;left:0;right:0;z-index:1000;background:rgba(10,14,26,0.88);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 2rem;height:64px;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;flex-shrink:0}
+.logo-icon{width:40px;height:40px;background:linear-gradient(135deg,var(--blue),var(--green-light));border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:'Exo 2',sans-serif;font-weight:900;font-size:15px;color:white;box-shadow:0 0 18px var(--glow-blue)}
+.logo-text{font-family:'Exo 2',sans-serif;font-weight:800;font-size:1.2rem;color:white}
+.logo-text span{color:var(--accent)}
+.nav-links{display:flex;align-items:center;gap:1.5rem;list-style:none}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:0.9rem;font-weight:500;transition:color .2s;white-space:nowrap}
+.nav-links a:hover{color:var(--accent)}
+.nav-right{display:flex;align-items:center;gap:10px}
+.nav-search{display:flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--border);border-radius:30px;padding:7px 16px;width:220px;cursor:pointer}
+.nav-search span{color:var(--muted);font-size:0.88rem}
+.nav-search i{color:var(--muted);font-size:0.8rem}
+
+/* HERO */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:130px 2rem 60px;z-index:1;overflow:hidden}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(66,165,245,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(66,165,245,0.05) 1px,transparent 1px);background-size:50px 50px;mask-image:radial-gradient(ellipse 80% 60% at 50% 50%,black 0%,transparent 70%);pointer-events:none}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(0,229,255,0.08);border:1px solid rgba(0,229,255,0.25);border-radius:30px;padding:6px 18px;font-size:0.85rem;color:var(--accent);margin-bottom:1.5rem;animation:fadeUp .6s ease both}
+.hero h1{font-family:'Exo 2',sans-serif;font-size:clamp(2.2rem,6vw,4rem);font-weight:900;line-height:1.15;margin-bottom:.8rem;animation:fadeUp .6s ease .1s both}
+.hero h1 .blue{color:var(--blue-light)}.hero h1 .green{color:var(--green-light)}
+.hero-bangla{font-size:clamp(1.2rem,3vw,1.9rem);font-weight:700;color:var(--muted);margin-bottom:1rem;animation:fadeUp .6s ease .2s both}
+.hero p{color:var(--muted);font-size:1rem;max-width:520px;margin:0 auto 2.2rem;line-height:1.7;animation:fadeUp .6s ease .3s both}
+.hero-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;animation:fadeUp .6s ease .4s both}
+.hero-stats{display:flex;gap:3rem;justify-content:center;margin-top:3rem;animation:fadeUp .6s ease .5s both;flex-wrap:wrap}
+.stat{text-align:center}
+.stat-num{font-family:'Exo 2',sans-serif;font-size:1.9rem;font-weight:800;color:var(--accent)}
+.stat-label{font-size:0.82rem;color:var(--muted)}
+
+/* BUTTONS */
+.btn-primary{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,var(--blue),var(--blue-light));color:white;text-decoration:none;padding:13px 28px;border-radius:12px;font-weight:700;font-size:.95rem;border:none;cursor:pointer;box-shadow:0 8px 28px var(--glow-blue);transition:transform .2s,box-shadow .2s;font-family:'Hind Siliguri',sans-serif}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 36px var(--glow-blue)}
+.btn-secondary{display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,0.05);color:var(--text);text-decoration:none;padding:13px 28px;border-radius:12px;font-weight:600;font-size:.95rem;border:1px solid var(--border);cursor:pointer;transition:all .2s;font-family:'Hind Siliguri',sans-serif}
+.btn-secondary:hover{background:rgba(255,255,255,.1);border-color:var(--accent);color:var(--accent)}
+
+/* SECTION */
+.section{position:relative;z-index:1;padding:70px 2rem}
+.container{max-width:1200px;margin:0 auto}
+.section-header{text-align:center;margin-bottom:2.5rem}
+.section-tag{display:inline-block;background:rgba(66,165,245,0.1);border:1px solid rgba(66,165,245,0.2);color:var(--blue-light);border-radius:20px;padding:4px 16px;font-size:0.78rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;margin-bottom:.7rem}
+.section-title{font-family:'Exo 2',sans-serif;font-size:clamp(1.5rem,3vw,2.3rem);font-weight:800;margin-bottom:.5rem}
+.section-sub{color:var(--muted);font-size:.95rem}
+
+/* PLATFORM TABS */
+.platform-tabs{display:flex;gap:.8rem;justify-content:center;margin-bottom:1.5rem;flex-wrap:wrap}
+.tab-btn{display:flex;align-items:center;gap:8px;padding:10px 24px;border-radius:12px;border:1.5px solid var(--border);background:var(--card);color:var(--muted);font-family:'Hind Siliguri',sans-serif;font-size:.95rem;font-weight:600;cursor:pointer;transition:all .25s;white-space:nowrap}
+.tab-btn.active,.tab-btn:hover{border-color:var(--blue-light);color:var(--blue-light);background:rgba(66,165,245,0.1);box-shadow:0 4px 20px rgba(66,165,245,.15)}
+.tab-btn.active{box-shadow:0 4px 24px rgba(66,165,245,.25)}
+
+/* CATEGORY FILTER */
+.cat-filters{display:flex;gap:.6rem;flex-wrap:wrap;justify-content:center;margin-bottom:2rem}
+.cat-filter-btn{padding:6px 16px;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--muted);font-family:'Hind Siliguri',sans-serif;font-size:.82rem;font-weight:600;cursor:pointer;transition:all .2s}
+.cat-filter-btn.active,.cat-filter-btn:hover{background:rgba(0,229,255,0.1);border-color:var(--accent);color:var(--accent)}
+
+/* APP GRID */
+.app-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1.2rem}
+.app-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.3rem;text-align:center;transition:all .3s;cursor:default;position:relative;overflow:hidden;animation:fadeUp .5s ease both}
+.app-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--blue-light),transparent);opacity:0;transition:opacity .3s}
+.app-card:hover{transform:translateY(-5px);border-color:rgba(66,165,245,0.4);box-shadow:0 10px 36px rgba(21,101,192,.2)}
+.app-card:hover::before{opacity:1}
+.app-icon-wrap{width:66px;height:66px;border-radius:15px;margin:0 auto .9rem;display:flex;align-items:center;justify-content:center;font-size:1.9rem;background:rgba(66,165,245,0.1);border:1px solid var(--border)}
+.app-name{font-family:'Exo 2',sans-serif;font-weight:700;font-size:.92rem;margin-bottom:.25rem}
+.app-cat-label{font-size:.72rem;color:var(--muted);margin-bottom:.7rem;text-transform:uppercase;letter-spacing:.5px}
+.app-platforms{display:flex;gap:5px;justify-content:center;margin-bottom:.8rem;flex-wrap:wrap}
+.pbadge{display:inline-flex;align-items:center;gap:4px;padding:3px 9px;border-radius:20px;font-size:.67rem;font-weight:700;text-transform:uppercase;letter-spacing:.4px}
+.pbadge-a{background:rgba(102,187,106,0.15);border:1px solid rgba(102,187,106,0.3);color:var(--green-light)}
+.pbadge-w{background:rgba(66,165,245,0.15);border:1px solid rgba(66,165,245,0.3);color:var(--blue-light)}
+.dl-btn{display:flex;align-items:center;justify-content:center;gap:7px;width:100%;padding:9px;border-radius:10px;background:linear-gradient(135deg,var(--blue),var(--blue-light));color:white;font-family:'Hind Siliguri',sans-serif;font-weight:700;font-size:.85rem;border:none;cursor:pointer;text-decoration:none;transition:all .2s;box-shadow:0 4px 14px var(--glow-blue)}
+.dl-btn:hover{transform:scale(1.03)}
+.dl-btn.green{background:linear-gradient(135deg,var(--green),var(--green-light));box-shadow:0 4px 14px var(--glow-green)}
+.dl-btn.both{background:linear-gradient(135deg,var(--blue),var(--green-light));box-shadow:0 4px 14px rgba(21,101,192,.3)}
+.no-link{opacity:.5;cursor:not-allowed;pointer-events:none}
+
+/* RESULTS COUNT */
+.results-info{text-align:center;color:var(--muted);font-size:.88rem;margin-bottom:1.5rem}
+.results-info span{color:var(--accent);font-weight:700}
+
+/* HOW TO */
+.steps-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.3rem}
+.step-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.8rem 1.3rem;position:relative;transition:all .3s}
+.step-card:hover{border-color:rgba(66,165,245,.35);transform:translateY(-4px)}
+.step-num{position:absolute;top:-14px;left:1.3rem;width:32px;height:32px;background:linear-gradient(135deg,var(--blue),var(--blue-light));border-radius:9px;display:flex;align-items:center;justify-content:center;font-family:'Exo 2',sans-serif;font-weight:800;font-size:.85rem;color:white;box-shadow:0 4px 14px var(--glow-blue)}
+.step-icon{font-size:1.7rem;margin-bottom:.8rem}
+.step-title{font-family:'Exo 2',sans-serif;font-weight:700;margin-bottom:.4rem;font-size:.95rem}
+.step-desc{color:var(--muted);font-size:.84rem;line-height:1.6}
+
+/* FOOTER */
+footer{background:rgba(0,0,0,0.5);border-top:1px solid var(--border);padding:2.5rem 2rem 1.5rem;position:relative;z-index:1}
+.footer-grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2.5rem;margin-bottom:2.5rem}
+.footer-brand p{color:var(--muted);font-size:.88rem;line-height:1.7;margin:.8rem 0}
+.footer-social{display:flex;gap:8px}
+.social-btn{width:36px;height:36px;border-radius:9px;background:var(--card);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:.85rem;text-decoration:none;transition:all .2s}
+.social-btn:hover{background:rgba(66,165,245,.15);border-color:var(--blue-light);color:var(--blue-light)}
+.footer-col h4{font-family:'Exo 2',sans-serif;font-weight:700;margin-bottom:1rem;font-size:.95rem;color:white}
+.footer-col ul{list-style:none}
+.footer-col ul li{margin-bottom:.5rem}
+.footer-col ul li a{color:var(--muted);text-decoration:none;font-size:.87rem;transition:color .2s}
+.footer-col ul li a:hover{color:var(--accent)}
+.footer-bottom{max-width:1200px;margin:0 auto;padding-top:1.2rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.8rem;color:var(--muted);font-size:.82rem}
+.free-badge{background:linear-gradient(135deg,var(--green),var(--green-light));color:white;padding:3px 12px;border-radius:20px;font-size:.78rem;font-weight:700}
+
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.78);backdrop-filter:blur(10px);z-index:2000;display:none;align-items:center;justify-content:center;padding:2rem}
+.modal-overlay.active{display:flex}
+.modal{background:var(--dark2);border:1px solid var(--border);border-radius:22px;padding:2.2rem;max-width:460px;width:100%;position:relative;animation:modalIn .3s ease}
+@keyframes modalIn{from{opacity:0;transform:scale(.9) translateY(20px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.modal-close{position:absolute;top:.9rem;right:.9rem;width:30px;height:30px;border-radius:8px;background:var(--card);border:none;color:var(--muted);cursor:pointer;font-size:.9rem;transition:all .2s}
+.modal-close:hover{background:rgba(255,100,100,.2);color:#ff6464}
+.modal-icon{font-size:2.8rem;margin-bottom:.8rem}
+.modal-title{font-family:'Exo 2',sans-serif;font-size:1.35rem;font-weight:800;margin-bottom:.4rem}
+.modal-desc{color:var(--muted);font-size:.88rem;margin-bottom:1.3rem;line-height:1.6}
+.modal-info{display:flex;gap:.8rem;margin-bottom:1.3rem}
+.modal-info-item{flex:1;background:var(--card);border:1px solid var(--border);border-radius:11px;padding:.7rem;text-align:center}
+.modal-info-label{font-size:.72rem;color:var(--muted)}
+.modal-info-val{font-weight:700;font-size:.9rem;margin-top:2px}
+.modal-download-btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:13px;border-radius:13px;background:linear-gradient(135deg,var(--blue),var(--green-light));color:white;font-family:'Hind Siliguri',sans-serif;font-weight:700;font-size:1rem;border:none;cursor:pointer;text-decoration:none;transition:all .2s;box-shadow:0 8px 28px rgba(21,101,192,.3)}
+.modal-download-btn:hover{transform:scale(1.02)}
+.modal-no-link{background:rgba(255,255,255,.08);color:var(--muted);cursor:not-allowed;box-shadow:none}
+
+/* SEARCH OVERLAY */
+.search-overlay{position:fixed;inset:0;background:rgba(0,0,0,.88);backdrop-filter:blur(16px);z-index:3000;display:none;flex-direction:column;align-items:center;padding:5rem 2rem 2rem}
+.search-overlay.active{display:flex}
+.search-big{background:var(--card2);border:1.5px solid rgba(66,165,245,.3);border-radius:18px;padding:1.1rem 1.4rem;display:flex;align-items:center;gap:12px;width:100%;max-width:600px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.search-big input{background:none;border:none;outline:none;color:var(--text);font-family:'Hind Siliguri',sans-serif;font-size:1.15rem;width:100%}
+.search-big i{color:var(--accent);font-size:1.1rem;flex-shrink:0}
+.search-close-btn{margin-top:1rem;color:var(--muted);font-size:.88rem;cursor:pointer;background:none;border:none;font-family:'Hind Siliguri',sans-serif}
+.search-results-preview{margin-top:1.5rem;width:100%;max-width:600px;display:flex;flex-direction:column;gap:.6rem;max-height:50vh;overflow-y:auto}
+.search-result-item{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:.9rem 1.2rem;display:flex;align-items:center;gap:1rem;cursor:pointer;transition:all .2s}
+.search-result-item:hover{border-color:var(--blue-light);background:rgba(66,165,245,.08)}
+.sri-icon{font-size:1.5rem;flex-shrink:0}
+.sri-info{flex:1}
+.sri-name{font-family:'Exo 2',sans-serif;font-weight:700;font-size:.95rem}
+.sri-cat{font-size:.78rem;color:var(--muted)}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--dark2)}
+::-webkit-scrollbar-thumb{background:var(--blue);border-radius:3px}
+
+@media(max-width:768px){
+  .nav-links{display:none}
+  .nav-search{width:150px}
+  .footer-grid{grid-template-columns:1fr 1fr}
+  .hero-stats{gap:1.5rem}
+  .app-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}
+}
+@media(max-width:480px){
+  .footer-grid{grid-template-columns:1fr}
+  .app-grid{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="notice-bar">
+  <i class="fas fa-bolt"></i> সব অ্যাপ একদম ফ্রি — কোনো সাইনআপ নেই, কোনো পেমেন্ট নেই!
+</div>
+
+<nav>
+  <a href="#" class="nav-logo">
+    <div class="logo-icon">AB</div>
+    <span class="logo-text">AppBazar<span>BD</span></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#apps">Apps</a></li>
+    <li><a href="#categories">Categories</a></li>
+    <li><a href="#how">ডাউনলোড গাইড</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="nav-search" onclick="openSearch()">
+      <i class="fas fa-search"></i>
+      <span>অ্যাপ খুঁজুন...</span>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div style="position:relative;z-index:1">
+    <div class="hero-badge"><i class="fas fa-fire"></i> বাংলাদেশের সেরা ফ্রি অ্যাপ স্টোর</div>
+    <h1><span class="blue">AppBazar</span><span class="green">BD</span></h1>
+    <div class="hero-bangla">আপনার ডিজিটাল বাজার</div>
+    <p>Android ও Windows-এর জন্য ১৫০+ সেরা অ্যাপ এখন এক জায়গায়। সব অ্যাপ একদম ফ্রি — সরাসরি ডাউনলোড করুন!</p>
+    <div class="hero-btns">
+      <button class="btn-primary" onclick="document.getElementById('apps').scrollIntoView({behavior:'smooth'})">
+        <i class="fab fa-android"></i> Android Apps
+      </button>
+      <button class="btn-secondary" onclick="switchPlatform('windows')">
+        <i class="fab fa-windows"></i> Windows Apps
+      </button>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-num">150+</div><div class="stat-label">অ্যাপ</div></div>
+      <div class="stat"><div class="stat-num">100%</div><div class="stat-label">ফ্রি</div></div>
+      <div class="stat"><div class="stat-num">5টি</div><div class="stat-label">ক্যাটাগরি</div></div>
+      <div class="stat"><div class="stat-num">Fast</div><div class="stat-label">ডাউনলোড</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORIES -->
+<section class="section" id="categories">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">ক্যাটাগরি</div>
+      <div class="section-title">সব ধরনের অ্যাপ</div>
+      <div class="section-sub">ক্যাটাগরি বেছে সরাসরি যান</div>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:1rem">
+      <div onclick="jumpCat('video')" style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.5rem 1rem;text-align:center;cursor:pointer;transition:all .25s" onmouseover="this.style.borderColor='rgba(66,165,245,0.4)'" onmouseout="this.style.borderColor='var(--border)'">
+        <div style="font-size:2rem;margin-bottom:.6rem">🎬</div>
+        <div style="font-weight:600;font-size:.9rem">ভিডিও এডিটিং</div>
+        <div style="font-size:.75rem;color:var(--muted);margin-top:2px">30 অ্যাপ</div>
+      </div>
+      <div onclick="jumpCat('social')" style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.5rem 1rem;text-align:center;cursor:pointer;transition:all .25s" onmouseover="this.style.borderColor='rgba(66,165,245,0.4)'" onmouseout="this.style.borderColor='var(--border)'">
+        <div style="font-size:2rem;margin-bottom:.6rem">💬</div>
+        <div style="font-weight:600;font-size:.9rem">সোশ্যাল মিডিয়া</div>
+        <div style="font-size:.75rem;color:var(--muted);margin-top:2px">30 অ্যাপ</div>
+      </div>
+      <div onclick="jumpCat('games')" style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.5rem 1rem;text-align:center;cursor:pointer;transition:all .25s" onmouseover="this.style.borderColor='rgba(66,165,245,0.4)'" onmouseout="this.style.borderColor='var(--border)'">
+        <div style="font-size:2rem;margin-bottom:.6rem">🎮</div>
+        <div style="font-weight:600;font-size:.9rem">গেমস</div>
+        <div style="font-size:.75rem;color:var(--muted);margin-top:2px">30 অ্যাপ</div>
+      </div>
+      <div onclick="jumpCat('streaming')" style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.5rem 1rem;text-align:center;cursor:pointer;transition:all .25s" onmouseover="this.style.borderColor='rgba(66,165,245,0.4)'" onmouseout="this.style.borderColor='var(--border)'">
+        <div style="font-size:2rem;margin-bottom:.6rem">📺</div>
+        <div style="font-weight:600;font-size:.9rem">স্ট্রিমিং</div>
+        <div style="font-size:.75rem;color:var(--muted);margin-top:2px">20 অ্যাপ</div>
+      </div>
+      <div onclick="jumpCat('tools')" style="background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.5rem 1rem;text-align:center;cursor:pointer;transition:all .25s" onmouseover="this.style.borderColor='rgba(66,165,245,0.4)'" onmouseout="this.style.borderColor='var(--border)'">
+        <div style="font-size:2rem;margin-bottom:.6rem">🛠️</div>
+        <div style="font-weight:600;font-size:.9rem">টুলস & ইউটিলিটি</div>
+        <div style="font-size:.75rem;color:var(--muted);margin-top:2px">40 অ্যাপ</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- APPS -->
+<section class="section" id="apps">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">সব অ্যাপ</div>
+      <div class="section-title">ডাউনলোড করুন</div>
+      <div class="section-sub">Platform ও Category বেছে সহজে খুঁজুন</div>
+    </div>
+
+    <div class="platform-tabs">
+      <button class="tab-btn active" id="tab-all" onclick="switchPlatform('all')"><i class="fas fa-th"></i> সব প্লাটফর্ম</button>
+      <button class="tab-btn" id="tab-android" onclick="switchPlatform('android')"><i class="fab fa-android"></i> Android</button>
+      <button class="tab-btn" id="tab-windows" onclick="switchPlatform('windows')"><i class="fab fa-windows"></i> Windows</button>
+    </div>
+
+    <div class="cat-filters" id="catFilters">
+      <button class="cat-filter-btn active" onclick="switchCat('all',this)">সব</button>
+      <button class="cat-filter-btn" onclick="switchCat('video',this)">🎬 ভিডিও এডিটিং</button>
+      <button class="cat-filter-btn" onclick="switchCat('social',this)">💬 সোশ্যাল</button>
+      <button class="cat-filter-btn" onclick="switchCat('games',this)">🎮 গেমস</button>
+      <button class="cat-filter-btn" onclick="switchCat('streaming',this)">📺 স্ট্রিমিং</button>
+      <button class="cat-filter-btn" onclick="switchCat('tools',this)">🛠️ টুলস</button>
+    </div>
+
+    <div class="results-info" id="resultsInfo"><span id="resultsCount">150</span> টি অ্যাপ পাওয়া গেছে</div>
+
+    <div class="app-grid" id="appGrid"></div>
+  </div>
+</section>
+
+<!-- HOW TO -->
+<section class="section" id="how">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-tag">গাইড</div>
+      <div class="section-title">কিভাবে ডাউনলোড করবেন?</div>
+      <div class="section-sub">মাত্র ৩টি সহজ ধাপে আপনার অ্যাপ ডাউনলোড করুন</div>
+    </div>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-num">১</div>
+        <div class="step-icon">🔍</div>
+        <div class="step-title">অ্যাপ খুঁজুন</div>
+        <p class="step-desc">সার্চ বারে অ্যাপের নাম লিখুন অথবা ক্যাটাগরি থেকে বেছে নিন।</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">২</div>
+        <div class="step-icon">📥</div>
+        <div class="step-title">ডাউনলোড বাটন চাপুন</div>
+        <p class="step-desc">ডাউনলোড বাটনে ক্লিক করলে সরাসরি MediaFire-এ নিয়ে যাবে।</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">৩</div>
+        <div class="step-icon">✅</div>
+        <div class="step-title">ইন্সটল করুন</div>
+        <p class="step-desc">ডাউনলোড শেষে ফাইল খুলুন এবং ইন্সটল করে উপভোগ করুন!</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num" style="font-size:.7rem">⚙️</div>
+        <div class="step-icon">📱</div>
+        <div class="step-title">Android Unknown Sources</div>
+        <p class="step-desc">Settings → Security → Unknown Sources চালু করুন, তারপর APK ইন্সটল করুন।</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="nav-logo" style="margin-bottom:.7rem">
+        <div class="logo-icon">AB</div>
+        <span class="logo-text">AppBazar<span style="color:var(--accent)">BD</span></span>
+      </div>
+      <p>বাংলাদেশের সেরা ফ্রি অ্যাপ স্টোর। Android ও Windows-এর জন্য ১৫০+ অ্যাপ একদম বিনামূল্যে।</p>
+      <div class="footer-social">
+        <a href="#" class="social-btn"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" class="social-btn"><i class="fab fa-youtube"></i></a>
+        <a href="#" class="social-btn"><i class="fab fa-telegram"></i></a>
+        <a href="#" class="social-btn"><i class="fab fa-whatsapp"></i></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>ক্যাটাগরি</h4>
+      <ul>
+        <li><a href="#" onclick="jumpCat('video')">ভিডিও এডিটিং</a></li>
+        <li><a href="#" onclick="jumpCat('social')">সোশ্যাল মিডিয়া</a></li>
+        <li><a href="#" onclick="jumpCat('games')">গেমস</a></li>
+        <li><a href="#" onclick="jumpCat('streaming')">স্ট্রিমিং</a></li>
+        <li><a href="#" onclick="jumpCat('tools')">টুলস</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>প্লাটফর্ম</h4>
+      <ul>
+        <li><a href="#" onclick="switchPlatform('android')">Android Apps</a></li>
+        <li><a href="#" onclick="switchPlatform('windows')">Windows Apps</a></li>
+        <li><a href="#" onclick="switchPlatform('all')">সব Apps</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>আরও</h4>
+      <ul>
+        <li><a href="#">আমাদের সম্পর্কে</a></li>
+        <li><a href="#">যোগাযোগ</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">DMCA</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 AppBazarBD. সর্বস্বত্ব সংরক্ষিত।</span>
+    <span class="free-badge">100% FREE</span>
+    <span>Made with ❤️ in Bangladesh</span>
+  </div>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
+    <div class="modal-icon" id="mIcon"></div>
+    <div class="modal-title" id="mTitle"></div>
+    <div class="modal-desc" id="mDesc"></div>
+    <div class="modal-info">
+      <div class="modal-info-item"><div class="modal-info-label">ক্যাটাগরি</div><div class="modal-info-val" id="mCat"></div></div>
+      <div class="modal-info-item"><div class="modal-info-label">প্লাটফর্ম</div><div class="modal-info-val" id="mPlat"></div></div>
+    </div>
+    <a id="mBtn" href="#" target="_blank" class="modal-download-btn">
+      <i class="fas fa-download"></i> MediaFire থেকে ডাউনলোড করুন
+    </a>
+    <div id="mNoLink" style="display:none;text-align:center;margin-top:.8rem;color:var(--muted);font-size:.82rem">
+      <i class="fas fa-clock"></i> লিংক শীঘ্রই যোগ করা হবে
+    </div>
+  </div>
+</div>
+
+<!-- SEARCH OVERLAY -->
+<div class="search-overlay" id="searchOverlay">
+  <div class="search-big">
+    <i class="fas fa-search"></i>
+    <input type="text" id="searchInput" placeholder="অ্যাপের নাম লিখুন..." oninput="handleSearch(this.value)" autocomplete="off">
+    <i class="fas fa-times" style="cursor:pointer;color:var(--muted)" onclick="closeSearch()"></i>
+  </div>
+  <button class="search-close-btn" onclick="closeSearch()">ESC চাপুন বা এখানে ক্লিক করুন বন্ধ করতে</button>
+  <div class="search-results-preview" id="searchResults"></div>
+</div>
+
+<script>
+// =============================================================
+// APP DATABASE — প্রতিটি app-এর link ফিল্ডে MediaFire লিংক দিন
+// =============================================================
+const APPS = [
+
+  // ─────────────────────────────────────────
+  // 🎬 VIDEO EDITING APPS (30)
+  // ─────────────────────────────────────────
+  { name:"CapCut",           icon:"🎬", cat:"video", platform:"android",
+    desc:"TikTok-এর অফিশিয়াল ভিডিও এডিটিং অ্যাপ। সহজ ইন্টারফেস, অনেক ইফেক্ট।",
+    link:"https://drive.google.com/drive/folders/1yV6wHLAzgehJ-xBGr3ojzGjyeOxj88XQ?usp=drive_link" /* ← CapCut Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Alight Motion",    icon:"✨", cat:"video", platform:"android",
+    desc:"প্রফেশনাল মোশন গ্রাফিক্স ও ভিডিও এডিটিং অ্যাপ।",
+    link:"" /* ← Alight Motion Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"KineMaster",       icon:"🎞️", cat:"video", platform:"android",
+    desc:"মাল্টি-লেয়ার ভিডিও এডিটিং সাপোর্টসহ প্রফেশনাল এডিটর।",
+    link:"" /* ← KineMaster Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"VN Video Editor",  icon:"🎥", cat:"video", platform:"android",
+    desc:"সিম্পল ও পাওয়ারফুল ভিডিও এডিটর, ওয়াটারমার্ক নেই।",
+    link:"" /* ← VN Video Editor Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"InShot",           icon:"📹", cat:"video", platform:"android",
+    desc:"ভিডিও ও ফটো এডিট করার জনপ্রিয় অ্যাপ।",
+    link:"" /* ← InShot Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"PowerDirector",    icon:"⚡", cat:"video", platform:"android",
+    desc:"4K ভিডিও এডিটিং সাপোর্টসহ শক্তিশালী এডিটর।",
+    link:"" /* ← PowerDirector Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Adobe Premiere Rush", icon:"🔴", cat:"video", platform:"android",
+    desc:"Adobe-এর মোবাইল ভিডিও এডিটিং সলিউশন।",
+    link:"" /* ← Adobe Premiere Rush Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Adobe Premiere Clip", icon:"🎦", cat:"video", platform:"android",
+    desc:"Adobe-এর সহজ অটো ভিডিও এডিটিং অ্যাপ।",
+    link:"" /* ← Adobe Premiere Clip Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"FilmoraGo",        icon:"🌟", cat:"video", platform:"android",
+    desc:"Filmora-র মোবাইল ভার্সন, সুন্দর টেমপ্লেট সহ।",
+    link:"" /* ← FilmoraGo Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Filmora AI",       icon:"🤖", cat:"video", platform:"android",
+    desc:"AI-পাওয়ার্ড স্মার্ট ভিডিও এডিটিং অ্যাপ।",
+    link:"" /* ← Filmora AI Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"VivaCut",          icon:"✂️", cat:"video", platform:"android",
+    desc:"প্রফেশনাল কাট ও এফেক্টসহ ভিডিও এডিটর।",
+    link:"" /* ← VivaCut Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"YouCut",           icon:"✂️", cat:"video", platform:"android",
+    desc:"ওয়াটারমার্ক ছাড়া ভিডিও কাট ও মার্জ করার অ্যাপ।",
+    link:"" /* ← YouCut Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"GoPro Quik",       icon:"🏄", cat:"video", platform:"android",
+    desc:"GoPro ও ফোনের ভিডিও অটো-এডিট করার অ্যাপ।",
+    link:"" /* ← GoPro Quik Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Magisto",          icon:"🪄", cat:"video", platform:"android",
+    desc:"AI দিয়ে অটোমেটিক মুভি বানানোর অ্যাপ।",
+    link:"" /* ← Magisto Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Splice",           icon:"🔗", cat:"video", platform:"android",
+    desc:"সহজ ড্র্যাগ-এন্ড-ড্রপ ভিডিও এডিটিং অ্যাপ।",
+    link:"" /* ← Splice Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Videoshop",        icon:"🛒", cat:"video", platform:"android",
+    desc:"স্লো মোশন, রিভার্স ও ফিল্টার সহ ভিডিও এডিটর।",
+    link:"" /* ← Videoshop Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Canva Video",      icon:"🎨", cat:"video", platform:"android",
+    desc:"Canva-তে ভিডিও ডিজাইন ও এডিটিং টুল।",
+    link:"" /* ← Canva Video Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"LumaFusion",       icon:"💎", cat:"video", platform:"android",
+    desc:"প্রফেশনাল মাল্টি-ট্র্যাক ভিডিও এডিটিং অ্যাপ।",
+    link:"" /* ← LumaFusion Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"VideoShow",        icon:"📽️", cat:"video", platform:"android",
+    desc:"সুন্দর স্লাইডশো ও ভিডিও বানানোর অ্যাপ।",
+    link:"" /* ← VideoShow Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"ActionDirector",   icon:"🎬", cat:"video", platform:"android",
+    desc:"স্লো মোশন ও ফাস্ট মোশন ভিডিও এডিটিং।",
+    link:"" /* ← ActionDirector Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Funimate",         icon:"🎉", cat:"video", platform:"android",
+    desc:"ক্রিয়েটিভ ভিডিও এফেক্ট ও ট্রানজিশনের অ্যাপ।",
+    link:"" /* ← Funimate Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Cute CUT",         icon:"🌸", cat:"video", platform:"android",
+    desc:"সহজ ও মজার ভিডিও কাটিং অ্যাপ।",
+    link:"" /* ← Cute CUT Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"VN Pro",           icon:"🎬", cat:"video", platform:"android",
+    desc:"VN Video Editor-এর প্রো ভার্সন, বেশি ফিচার।",
+    link:"" /* ← VN Pro Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Blink Video Editor", icon:"👁️", cat:"video", platform:"android",
+    desc:"দ্রুত ও স্মার্ট AI ভিডিও এডিটিং অ্যাপ।",
+    link:"" /* ← Blink Video Editor Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"VITA",             icon:"💚", cat:"video", platform:"android",
+    desc:"ট্রেন্ডি ইফেক্ট ও ফিল্টার সহ ভিডিও এডিটর।",
+    link:"" /* ← VITA Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Node Video",       icon:"🔵", cat:"video", platform:"android",
+    desc:"নোড-বেসড প্রফেশনাল ভিডিও এফেক্ট অ্যাপ।",
+    link:"" /* ← Node Video Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Story Cutter",     icon:"📖", cat:"video", platform:"android",
+    desc:"ইন্সটাগ্রাম স্টোরির জন্য ভিডিও কাটিং টুল।",
+    link:"" /* ← Story Cutter Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"InstaShot Pro",    icon:"📷", cat:"video", platform:"android",
+    desc:"ইন্সটাগ্রামের জন্য অপ্টিমাইজড ভিডিও এডিটর।",
+    link:"" /* ← InstaShot Pro Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"CapCut Pro Mod",   icon:"🎬", cat:"video", platform:"android",
+    desc:"CapCut-এর মড ভার্সন, সব প্রিমিয়াম ফিচার আনলক।",
+    link:"" /* ← CapCut Pro Mod Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Motion Ninja",     icon:"🥷", cat:"video", platform:"android",
+    desc:"প্রো মোশন ডিজাইন ও কীফ্রেম অ্যানিমেশন অ্যাপ।",
+    link:"" /* ← Motion Ninja Android MediaFire লিংক এখানে paste করুন */ },
+
+
+  // ─────────────────────────────────────────
+  // 💬 SOCIAL MEDIA APPS (30)
+  // ─────────────────────────────────────────
+  { name:"Facebook",         icon:"📘", cat:"social", platform:"android",
+    desc:"বিশ্বের সবচেয়ে বড় সোশ্যাল নেটওয়ার্ক।",
+    link:"" /* ← Facebook Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Messenger",        icon:"💬", cat:"social", platform:"android",
+    desc:"Facebook-এর ফ্রি মেসেজিং ও ভিডিও কলিং অ্যাপ।",
+    link:"" /* ← Messenger Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Instagram",        icon:"📸", cat:"social", platform:"android",
+    desc:"ফটো ও ভিডিও শেয়ারিং সোশ্যাল প্ল্যাটফর্ম।",
+    link:"" /* ← Instagram Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"WhatsApp",         icon:"💚", cat:"social", platform:"android",
+    desc:"বিশ্বের সবচেয়ে জনপ্রিয় ফ্রি মেসেজিং অ্যাপ।",
+    link:"" /* ← WhatsApp Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Telegram",         icon:"✈️", cat:"social", platform:"android",
+    desc:"দ্রুত ও সিকিউর মেসেজিং, বড় ফাইল শেয়ার।",
+    link:"" /* ← Telegram Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Snapchat",         icon:"👻", cat:"social", platform:"android",
+    desc:"মজার ফিল্টার ও অস্থায়ী স্ন্যাপ শেয়ারিং।",
+    link:"" /* ← Snapchat Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"TikTok",           icon:"🎭", cat:"social", platform:"android",
+    desc:"শর্ট ভিডিও শেয়ারিংয়ের সবচেয়ে বড় প্ল্যাটফর্ম।",
+    link:"" /* ← TikTok Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"X (Twitter)",      icon:"🐦", cat:"social", platform:"android",
+    desc:"রিয়েল-টাইম নিউজ ও মতামত শেয়ারিং প্ল্যাটফর্ম।",
+    link:"" /* ← X Twitter Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"LinkedIn",         icon:"💼", cat:"social", platform:"android",
+    desc:"প্রফেশনাল নেটওয়ার্কিং ও চাকরির সুযোগ।",
+    link:"" /* ← LinkedIn Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Pinterest",        icon:"📌", cat:"social", platform:"android",
+    desc:"ছবি ও আইডিয়া সংগ্রহ করার প্ল্যাটফর্ম।",
+    link:"" /* ← Pinterest Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Discord",          icon:"🎮", cat:"social", platform:"android",
+    desc:"গেমার ও কমিউনিটির জন্য ভয়েস ও চ্যাট অ্যাপ।",
+    link:"" /* ← Discord Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Reddit",           icon:"🤖", cat:"social", platform:"android",
+    desc:"বিভিন্ন বিষয়ে আলোচনার বিশাল কমিউনিটি।",
+    link:"" /* ← Reddit Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Threads",          icon:"🧵", cat:"social", platform:"android",
+    desc:"Instagram-এর টেক্সট-বেসড সোশ্যাল প্ল্যাটফর্ম।",
+    link:"" /* ← Threads Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"IMO",              icon:"📞", cat:"social", platform:"android",
+    desc:"বাংলাদেশে জনপ্রিয় ফ্রি ভিডিও কলিং অ্যাপ।",
+    link:"" /* ← IMO Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"WeChat",           icon:"🟢", cat:"social", platform:"android",
+    desc:"চীনের সবচেয়ে বড় সোশ্যাল মেসেজিং অ্যাপ।",
+    link:"" /* ← WeChat Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Viber",            icon:"💜", cat:"social", platform:"android",
+    desc:"ফ্রি কল ও মেসেজিং, গ্রুপ চ্যাট সুবিধা।",
+    link:"" /* ← Viber Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Signal",           icon:"🔐", cat:"social", platform:"android",
+    desc:"এন্ড-টু-এন্ড এনক্রিপ্টেড প্রাইভেট মেসেজিং।",
+    link:"" /* ← Signal Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Skype",            icon:"☁️", cat:"social", platform:"android",
+    desc:"Microsoft-এর ভিডিও কল ও মেসেজিং অ্যাপ।",
+    link:"" /* ← Skype Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Tumblr",           icon:"🌀", cat:"social", platform:"android",
+    desc:"ব্লগিং ও ক্রিয়েটিভ কনটেন্ট শেয়ারিং।",
+    link:"" /* ← Tumblr Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Bigo Live",        icon:"🔴", cat:"social", platform:"android",
+    desc:"লাইভ স্ট্রিমিং ও ভিডিও চ্যাটিং অ্যাপ।",
+    link:"" /* ← Bigo Live Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Likee",            icon:"❤️", cat:"social", platform:"android",
+    desc:"শর্ট ভিডিও ও লাইভ স্ট্রিমিং প্ল্যাটফর্ম।",
+    link:"" /* ← Likee Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Kwai",             icon:"🎪", cat:"social", platform:"android",
+    desc:"মজার শর্ট ভিডিও শেয়ারিং কমিউনিটি।",
+    link:"" /* ← Kwai Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Hike Messenger",   icon:"🚀", cat:"social", platform:"android",
+    desc:"ভারতীয় মেসেজিং অ্যাপ, স্টিকার ও গেমস।",
+    link:"" /* ← Hike Messenger Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Zalo",             icon:"🔵", cat:"social", platform:"android",
+    desc:"ভিয়েতনামের জনপ্রিয় মেসেজিং অ্যাপ।",
+    link:"" /* ← Zalo Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Snapchat Lite",    icon:"👻", cat:"social", platform:"android",
+    desc:"Snapchat-এর লাইট ভার্সন, কম ডেটা ব্যবহার।",
+    link:"" /* ← Snapchat Lite Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Facebook Lite",    icon:"📘", cat:"social", platform:"android",
+    desc:"Facebook-এর লাইট ভার্সন, স্লো নেটে কাজ করে।",
+    link:"" /* ← Facebook Lite Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Instagram Lite",   icon:"📸", cat:"social", platform:"android",
+    desc:"Instagram-এর লাইট ভার্সন, কম জায়গা নেয়।",
+    link:"" /* ← Instagram Lite Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Messenger Lite",   icon:"💬", cat:"social", platform:"android",
+    desc:"Messenger-এর লাইট ভার্সন, দ্রুত লোড হয়।",
+    link:"" /* ← Messenger Lite Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Snapchat Plus",    icon:"⭐", cat:"social", platform:"android",
+    desc:"Snapchat-এর প্রিমিয়াম ভার্সন, এক্সক্লুসিভ ফিচার।",
+    link:"" /* ← Snapchat Plus Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"ChatGPT App",      icon:"🤖", cat:"social", platform:"android",
+    desc:"OpenAI-এর ChatGPT অফিশিয়াল মোবাইল অ্যাপ।",
+    link:"" /* ← ChatGPT App Android MediaFire লিংক এখানে paste করুন */ },
+
+
+  // ─────────────────────────────────────────
+  // 🎮 GAMES (30)
+  // ─────────────────────────────────────────
+  { name:"PUBG Mobile",      icon:"🔫", cat:"games", platform:"android",
+    desc:"বিশ্বখ্যাত ব্যাটেল রয়েল গেম, ১০০ জনের যুদ্ধ।",
+    link:"" /* ← PUBG Mobile Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Free Fire",        icon:"🏆", cat:"games", platform:"android",
+    desc:"মোবাইলের সেরা ব্যাটেল রয়েল গেম, দ্রুত ম্যাচ।",
+    link:"" /* ← Free Fire Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Free Fire Max",    icon:"🔥", cat:"games", platform:"android",
+    desc:"Free Fire-এর হাই-গ্রাফিক্স ভার্সন।",
+    link:"" /* ← Free Fire Max Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Call of Duty Mobile", icon:"💣", cat:"games", platform:"android",
+    desc:"Call of Duty-র মোবাইল ভার্সন, বিভিন্ন মোড।",
+    link:"" /* ← Call of Duty Mobile Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Mobile Legends",   icon:"⚔️", cat:"games", platform:"android",
+    desc:"জনপ্রিয় মোবাইল MOBA গেম, ৫v৫ যুদ্ধ।",
+    link:"" /* ← Mobile Legends Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Clash of Clans",   icon:"🏰", cat:"games", platform:"android",
+    desc:"গ্রাম বানাও, সেনা তৈরি করো, যুদ্ধ করো।",
+    link:"" /* ← Clash of Clans Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Clash Royale",     icon:"👑", cat:"games", platform:"android",
+    desc:"Clash of Clans ইউনিভার্সের কার্ড ব্যাটল গেম।",
+    link:"" /* ← Clash Royale Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Subway Surfers",   icon:"🚇", cat:"games", platform:"android",
+    desc:"এন্ডলেস রানার গেম, ট্রেন থেকে পালাও।",
+    link:"" /* ← Subway Surfers Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Temple Run 2",     icon:"🏃", cat:"games", platform:"android",
+    desc:"মন্দির থেকে পালানোর জনপ্রিয় রানার গেম।",
+    link:"" /* ← Temple Run 2 Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Asphalt 9",        icon:"🏎️", cat:"games", platform:"android",
+    desc:"চমৎকার গ্রাফিক্সের হাই-স্পিড রেসিং গেম।",
+    link:"" /* ← Asphalt 9 Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Asphalt 8",        icon:"🚗", cat:"games", platform:"android",
+    desc:"Asphalt সিরিজের পুরনো কিন্তু জনপ্রিয় গেম।",
+    link:"" /* ← Asphalt 8 Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"GTA San Andreas",  icon:"🌆", cat:"games", platform:"android",
+    desc:"Rockstar-এর ক্লাসিক ওপেন-ওয়ার্ল্ড গেম।",
+    link:"" /* ← GTA San Andreas Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"GTA Vice City",    icon:"🌴", cat:"games", platform:"android",
+    desc:"80s মিয়ামিতে সেট করা GTA ক্লাসিক গেম।",
+    link:"" /* ← GTA Vice City Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Minecraft",        icon:"⛏️", cat:"games", platform:"android",
+    desc:"ব্লক দিয়ে যেকোনো কিছু বানানোর সৃজনশীল গেম।",
+    link:"" /* ← Minecraft Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Roblox",           icon:"🧱", cat:"games", platform:"android",
+    desc:"লক্ষো গেমের প্ল্যাটফর্ম, নিজের গেমও বানানো যায়।",
+    link:"" /* ← Roblox Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Dream League Soccer", icon:"⚽", cat:"games", platform:"android",
+    desc:"নিজের ড্রিম ফুটবল টিম বানানোর সেরা গেম।",
+    link:"" /* ← Dream League Soccer Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"eFootball PES",    icon:"🥅", cat:"games", platform:"android",
+    desc:"Konami-র জনপ্রিয় ফুটবল সিমুলেশন গেম।",
+    link:"" /* ← eFootball PES Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"FIFA Mobile",      icon:"🏟️", cat:"games", platform:"android",
+    desc:"EA-র অফিশিয়াল FIFA মোবাইল ফুটবল গেম।",
+    link:"" /* ← FIFA Mobile Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Stumble Guys",     icon:"🤸", cat:"games", platform:"android",
+    desc:"Fall Guys-স্টাইলের মজার মাল্টিপ্লেয়ার গেম।",
+    link:"" /* ← Stumble Guys Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Among Us",         icon:"🚀", cat:"games", platform:"android",
+    desc:"স্পেস শিপে লুকানো ইমপোস্টার খোঁজার গেম।",
+    link:"" /* ← Among Us Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Candy Crush Saga", icon:"🍬", cat:"games", platform:"android",
+    desc:"রঙিন ক্যান্ডি ম্যাচ করার জনপ্রিয় পাজল গেম।",
+    link:"" /* ← Candy Crush Saga Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Ludo King",        icon:"🎲", cat:"games", platform:"android",
+    desc:"ক্লাসিক লুডো গেম, অনলাইনে বন্ধুদের সাথে খেলুন।",
+    link:"" /* ← Ludo King Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Carrom Pool",      icon:"🎯", cat:"games", platform:"android",
+    desc:"অনলাইন মাল্টিপ্লেয়ার ক্যারম বোর্ড গেম।",
+    link:"" /* ← Carrom Pool Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Hill Climb Racing", icon:"🚙", cat:"games", platform:"android",
+    desc:"পাহাড়ি রাস্তায় গাড়ি চালানোর মজার গেম।",
+    link:"" /* ← Hill Climb Racing Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Fruit Ninja",      icon:"🍎", cat:"games", platform:"android",
+    desc:"ফল কাটার ক্লাসিক অ্যাকশন গেম।",
+    link:"" /* ← Fruit Ninja Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Modern Combat 5",  icon:"🎖️", cat:"games", platform:"android",
+    desc:"কনসোল-মানের FPS শুটার গেম মোবাইলে।",
+    link:"" /* ← Modern Combat 5 Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Shadow Fight 3",   icon:"🥊", cat:"games", platform:"android",
+    desc:"সুন্দর গ্রাফিক্সের সাথে মার্শাল আর্ট ফাইটিং।",
+    link:"" /* ← Shadow Fight 3 Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Shadow Fight 4",   icon:"⚫", cat:"games", platform:"android",
+    desc:"Shadow Fight সিরিজের সর্বশেষ ভার্সন।",
+    link:"" /* ← Shadow Fight 4 Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Real Cricket 24",  icon:"🏏", cat:"games", platform:"android",
+    desc:"বাস্তবসম্মত ক্রিকেট সিমুলেশন গেম।",
+    link:"" /* ← Real Cricket 24 Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"WWE Champions",    icon:"🤼", cat:"games", platform:"android",
+    desc:"WWE রেসলার দিয়ে পাজল ও ব্যাটল গেম।",
+    link:"" /* ← WWE Champions Android MediaFire লিংক এখানে paste করুন */ },
+
+
+  // ─────────────────────────────────────────
+  // 📺 STREAMING APPS (20)
+  // ─────────────────────────────────────────
+  { name:"Netflix",          icon:"🎬", cat:"streaming", platform:"android",
+    desc:"বিশ্বের সেরা অনলাইন মুভি ও সিরিজ প্ল্যাটফর্ম।",
+    link:"" /* ← Netflix Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Amazon Prime Video", icon:"📦", cat:"streaming", platform:"android",
+    desc:"Amazon-এর ভিডিও স্ট্রিমিং সার্ভিস।",
+    link:"" /* ← Amazon Prime Video Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Disney+",          icon:"🏰", cat:"streaming", platform:"android",
+    desc:"Disney, Marvel, Star Wars কনটেন্ট একসাথে।",
+    link:"" /* ← Disney+ Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"HBO Max",          icon:"🎭", cat:"streaming", platform:"android",
+    desc:"HBO-র প্রিমিয়াম কনটেন্ট স্ট্রিমিং অ্যাপ।",
+    link:"" /* ← HBO Max Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Hulu",             icon:"🟢", cat:"streaming", platform:"android",
+    desc:"লাইভ TV ও অন-ডিমান্ড ভিডিও স্ট্রিমিং।",
+    link:"" /* ← Hulu Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Apple TV",         icon:"🍎", cat:"streaming", platform:"android",
+    desc:"Apple-এর অরিজিনাল কনটেন্ট স্ট্রিমিং।",
+    link:"" /* ← Apple TV Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"YouTube",          icon:"▶️", cat:"streaming", platform:"android",
+    desc:"বিশ্বের সবচেয়ে বড় ভিডিও শেয়ারিং প্ল্যাটফর্ম।",
+    link:"" /* ← YouTube Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"YouTube Premium",  icon:"⭐", cat:"streaming", platform:"android",
+    desc:"YouTube-এর বিজ্ঞাপন-মুক্ত প্রিমিয়াম ভার্সন।",
+    link:"" /* ← YouTube Premium Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Hotstar",          icon:"🌟", cat:"streaming", platform:"android",
+    desc:"Disney+ Hotstar — IPL ও ভারতীয় কনটেন্ট।",
+    link:"" /* ← Hotstar Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"SonyLIV",          icon:"📺", cat:"streaming", platform:"android",
+    desc:"Sony-র লাইভ স্পোর্টস ও মুভি স্ট্রিমিং।",
+    link:"" /* ← SonyLIV Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Zee5",             icon:"🎪", cat:"streaming", platform:"android",
+    desc:"Zee-এর বাংলা ও হিন্দি কনটেন্ট প্ল্যাটফর্ম।",
+    link:"" /* ← Zee5 Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"MX Player",        icon:"▶️", cat:"streaming", platform:"android",
+    desc:"বাংলাদেশে জনপ্রিয় ভিডিও প্লেয়ার ও স্ট্রিমিং।",
+    link:"" /* ← MX Player Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"VLC Streamer",     icon:"🔶", cat:"streaming", platform:"android",
+    desc:"VLC-র স্ট্রিমিং ও মিডিয়া সার্ভার অ্যাপ।",
+    link:"" /* ← VLC Streamer Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Crunchyroll",      icon:"🐱", cat:"streaming", platform:"android",
+    desc:"Anime ও Asian ড্রামার সেরা স্ট্রিমিং প্ল্যাটফর্ম।",
+    link:"" /* ← Crunchyroll Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Twitch",           icon:"💜", cat:"streaming", platform:"android",
+    desc:"গেমিং ও লাইভ স্ট্রিমিংয়ের সবচেয়ে বড় প্ল্যাটফর্ম।",
+    link:"" /* ← Twitch Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Pluto TV",         icon:"🪐", cat:"streaming", platform:"android",
+    desc:"বিনামূল্যে লাইভ TV ও মুভি স্ট্রিমিং।",
+    link:"" /* ← Pluto TV Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Vudu",             icon:"🎬", cat:"streaming", platform:"android",
+    desc:"ডিজিটাল মুভি কেনা ও ভাড়া নেওয়ার সার্ভিস।",
+    link:"" /* ← Vudu Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Tubi TV",          icon:"🟠", cat:"streaming", platform:"android",
+    desc:"সম্পূর্ণ বিনামূল্যে মুভি ও TV শো স্ট্রিমিং।",
+    link:"" /* ← Tubi TV Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Google TV",        icon:"📺", cat:"streaming", platform:"android",
+    desc:"Google-এর স্মার্ট TV ও কনটেন্ট হাব অ্যাপ।",
+    link:"" /* ← Google TV Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Rakuten TV",       icon:"🎦", cat:"streaming", platform:"android",
+    desc:"ইউরোপের জনপ্রিয় ফ্রি মুভি স্ট্রিমিং অ্যাপ।",
+    link:"" /* ← Rakuten TV Android MediaFire লিংক এখানে paste করুন */ },
+
+
+  // ─────────────────────────────────────────
+  // 🛠️ UTILITY / TOOLS APPS (40)
+  // ─────────────────────────────────────────
+  { name:"Google Chrome",    icon:"🌐", cat:"tools", platform:"android",
+    desc:"Google-এর দ্রুত ও নিরাপদ ওয়েব ব্রাউজার।",
+    link:"" /* ← Google Chrome Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Firefox",          icon:"🦊", cat:"tools", platform:"both",
+    desc:"Mozilla-র প্রাইভেসি-ফোকাসড ওপেন সোর্স ব্রাউজার।",
+    link:"" /* ← Firefox Android/Windows MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Opera Mini",       icon:"🔴", cat:"tools", platform:"android",
+    desc:"ডেটা সেভার সহ দ্রুত ব্রাউজার, বাংলাদেশে জনপ্রিয়।",
+    link:"" /* ← Opera Mini Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"UC Browser",       icon:"🌀", cat:"tools", platform:"android",
+    desc:"দ্রুত ডাউনলোড ও ডেটা কম্প্রেশনের ব্রাউজার।",
+    link:"" /* ← UC Browser Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Brave Browser",    icon:"🦁", cat:"tools", platform:"both",
+    desc:"বিজ্ঞাপন ব্লকার সহ প্রাইভেসি ব্রাউজার।",
+    link:"" /* ← Brave Browser Android/Windows MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Samsung Internet", icon:"🌏", cat:"tools", platform:"android",
+    desc:"Samsung-এর অপ্টিমাইজড ওয়েব ব্রাউজার।",
+    link:"" /* ← Samsung Internet Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"File Manager",     icon:"📁", cat:"tools", platform:"android",
+    desc:"ফোনের ফাইল সহজে ম্যানেজ করার অ্যাপ।",
+    link:"" /* ← File Manager Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"ZArchiver",        icon:"🗜️", cat:"tools", platform:"android",
+    desc:"ZIP, RAR সহ যেকোনো আর্কাইভ খোলার অ্যাপ।",
+    link:"" /* ← ZArchiver Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"WinRAR Mobile",    icon:"📦", cat:"tools", platform:"android",
+    desc:"WinRAR-এর মোবাইল ভার্সন, RAR ও ZIP।",
+    link:"" /* ← WinRAR Mobile Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"PDF Reader",       icon:"📄", cat:"tools", platform:"android",
+    desc:"দ্রুত ও সহজ PDF ফাইল পড়ার অ্যাপ।",
+    link:"" /* ← PDF Reader Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Adobe Acrobat",    icon:"🔴", cat:"tools", platform:"both",
+    desc:"PDF তৈরি, এডিট ও সাইন করার সেরা অ্যাপ।",
+    link:"" /* ← Adobe Acrobat Android/Windows MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Google Drive",     icon:"💾", cat:"tools", platform:"android",
+    desc:"Google-এর ক্লাউড স্টোরেজ ও ফাইল শেয়ারিং।",
+    link:"" /* ← Google Drive Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Dropbox",          icon:"📦", cat:"tools", platform:"android",
+    desc:"ফাইল সংরক্ষণ ও শেয়ারিংয়ের জনপ্রিয় ক্লাউড।",
+    link:"" /* ← Dropbox Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Google Photos",    icon:"🖼️", cat:"tools", platform:"android",
+    desc:"ছবি ব্যাকআপ ও অর্গানাইজ করার সেরা অ্যাপ।",
+    link:"" /* ← Google Photos Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Google Maps",      icon:"🗺️", cat:"tools", platform:"android",
+    desc:"বিশ্বের সেরা নেভিগেশন ও ম্যাপ অ্যাপ।",
+    link:"" /* ← Google Maps Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Google Translate",  icon:"🌐", cat:"tools", platform:"android",
+    desc:"১০০+ ভাষায় তাৎক্ষণিক অনুবাদের অ্যাপ।",
+    link:"" /* ← Google Translate Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Gmail",            icon:"✉️", cat:"tools", platform:"android",
+    desc:"Google-এর ইমেইল সার্ভিস, বিনামূল্যে ১৫GB।",
+    link:"" /* ← Gmail Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Google Keep",      icon:"📝", cat:"tools", platform:"android",
+    desc:"দ্রুত নোট ও রিমাইন্ডার রাখার সহজ অ্যাপ।",
+    link:"" /* ← Google Keep Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Google Calendar",  icon:"📅", cat:"tools", platform:"android",
+    desc:"ইভেন্ট ও সিডিউল ম্যানেজ করার অ্যাপ।",
+    link:"" /* ← Google Calendar Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Truecaller",       icon:"📞", cat:"tools", platform:"android",
+    desc:"অজানা নম্বর সনাক্ত ও স্প্যাম ব্লক করার অ্যাপ।",
+    link:"" /* ← Truecaller Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Shazam",           icon:"🎵", cat:"tools", platform:"android",
+    desc:"যেকোনো গান শুনলেই নাম বলে দেয়।",
+    link:"" /* ← Shazam Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Snapseed",         icon:"📸", cat:"tools", platform:"android",
+    desc:"Google-এর প্রফেশনাল ফটো এডিটিং অ্যাপ।",
+    link:"" /* ← Snapseed Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Lightroom Mobile", icon:"☀️", cat:"tools", platform:"android",
+    desc:"Adobe-এর প্রফেশনাল ফটো এডিটিং অ্যাপ।",
+    link:"" /* ← Lightroom Mobile Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Remini AI",        icon:"✨", cat:"tools", platform:"android",
+    desc:"AI দিয়ে পুরনো ও ঝাপসা ছবি পরিষ্কার করার অ্যাপ।",
+    link:"" /* ← Remini AI Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"PicsArt",          icon:"🎨", cat:"tools", platform:"android",
+    desc:"ছবি এডিট, কোলাজ ও ডিজাইন করার জনপ্রিয় অ্যাপ।",
+    link:"" /* ← PicsArt Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Canva",            icon:"🖌️", cat:"tools", platform:"both",
+    desc:"সহজেই পোস্টার, ব্যানার ও ডিজাইন বানানোর অ্যাপ।",
+    link:"" /* ← Canva Android/Windows MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"QR Scanner",       icon:"📱", cat:"tools", platform:"android",
+    desc:"দ্রুত QR কোড ও বারকোড স্ক্যান করার অ্যাপ।",
+    link:"" /* ← QR Scanner Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"VPN Master",       icon:"🔐", cat:"tools", platform:"android",
+    desc:"ফ্রি VPN — নিরাপদ ও প্রাইভেট ব্রাউজিং।",
+    link:"" /* ← VPN Master Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Turbo VPN",        icon:"⚡", cat:"tools", platform:"android",
+    desc:"দ্রুত ও বিনামূল্যে VPN সার্ভিস।",
+    link:"" /* ← Turbo VPN Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Speedtest",        icon:"📊", cat:"tools", platform:"android",
+    desc:"ইন্টারনেট স্পিড পরীক্ষা করার Ookla অ্যাপ।",
+    link:"" /* ← Speedtest Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Battery Doctor",   icon:"🔋", cat:"tools", platform:"android",
+    desc:"ব্যাটারি লাইফ বাড়ানো ও মনিটর করার অ্যাপ।",
+    link:"" /* ← Battery Doctor Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Clean Master",     icon:"🧹", cat:"tools", platform:"android",
+    desc:"ফোন পরিষ্কার ও দ্রুত করার জনপ্রিয় অ্যাপ।",
+    link:"" /* ← Clean Master Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"DU Recorder",      icon:"🔴", cat:"tools", platform:"android",
+    desc:"স্ক্রিন রেকর্ডিং ও লাইভ স্ট্রিমিং অ্যাপ।",
+    link:"" /* ← DU Recorder Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Screen Recorder",  icon:"🎥", cat:"tools", platform:"android",
+    desc:"HD স্ক্রিন রেকর্ডিং, ফেসক্যাম ও এডিটিং।",
+    link:"" /* ← Screen Recorder Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"AZ Screen Recorder", icon:"📹", cat:"tools", platform:"android",
+    desc:"রুট ছাড়াই HD স্ক্রিন রেকর্ড করার সেরা অ্যাপ।",
+    link:"" /* ← AZ Screen Recorder Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Smart Switch",     icon:"📲", cat:"tools", platform:"android",
+    desc:"Samsung ডিভাইসে ডেটা ট্রান্সফারের অ্যাপ।",
+    link:"" /* ← Smart Switch Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Samsung Notes",    icon:"📓", cat:"tools", platform:"android",
+    desc:"Samsung-এর স্মার্ট নোট-টেকিং অ্যাপ।",
+    link:"" /* ← Samsung Notes Android MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Microsoft Office", icon:"📊", cat:"tools", platform:"both",
+    desc:"Word, Excel, PowerPoint — সব অফিস অ্যাপ একসাথে।",
+    link:"" /* ← Microsoft Office Android/Windows MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Word",             icon:"📝", cat:"tools", platform:"windows",
+    desc:"Microsoft Word — ডকুমেন্ট তৈরি ও এডিটিং।",
+    link:"" /* ← Microsoft Word Windows MediaFire লিংক এখানে paste করুন */ },
+
+  { name:"Excel",            icon:"📈", cat:"tools", platform:"windows",
+    desc:"Microsoft Excel — স্প্রেডশিট ও ডেটা অ্যানালিসিস।",
+    link:"" /* ← Microsoft Excel Windows MediaFire লিংক এখানে paste করুন */ },
+
+]; // END OF APPS ARRAY
+
+// =============================================================
+// LOGIC
+// =============================================================
+let curPlatform = 'all';
+let curCat = 'all';
+let curSearch = '';
+
+function getFiltered() {
+  return APPS.filter(a => {
+    const pMatch = curPlatform === 'all'
+      || (curPlatform === 'android' && (a.platform === 'android' || a.platform === 'both'))
+      || (curPlatform === 'windows' && (a.platform === 'windows' || a.platform === 'both'));
+    const cMatch = curCat === 'all' || a.cat === curCat;
+    const sMatch = !curSearch || a.name.toLowerCase().includes(curSearch.toLowerCase());
+    return pMatch && cMatch && sMatch;
+  });
+}
+
+const CAT_LABELS = { video:'🎬 ভিডিও', social:'💬 সোশ্যাল', games:'🎮 গেমস', streaming:'📺 স্ট্রিমিং', tools:'🛠️ টুলস' };
+const CAT_COLORS = { video:'rgba(239,68,68,0.15)', social:'rgba(59,130,246,0.15)', games:'rgba(168,85,247,0.15)', streaming:'rgba(249,115,22,0.15)', tools:'rgba(34,197,94,0.15)' };
+
+function renderApps(list) {
+  const grid = document.getElementById('appGrid');
+  document.getElementById('resultsCount').textContent = list.length;
+  grid.innerHTML = '';
+  if (!list.length) {
+    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;color:var(--muted);padding:3rem;font-size:1rem">কোনো অ্যাপ পাওয়া যায়নি।</div>';
+    return;
+  }
+  list.forEach((app, i) => {
+    const isA = app.platform === 'android' || app.platform === 'both';
+    const isW = app.platform === 'windows' || app.platform === 'both';
+    const iconBg = CAT_COLORS[app.cat] || 'rgba(66,165,245,0.1)';
+    const platforms = [];
+    if (isA) platforms.push('<span class="pbadge pbadge-a"><i class="fab fa-android"></i> Android</span>');
+    if (isW) platforms.push('<span class="pbadge pbadge-w"><i class="fab fa-windows"></i> Windows</span>');
+    const btnClass = isA && isW ? 'both' : isW ? '' : 'green';
+    const hasLink = app.link && app.link.trim() !== '';
+    const card = document.createElement('div');
+    card.className = 'app-card';
+    card.style.animationDelay = Math.min(i * 0.03, 0.5) + 's';
+    card.innerHTML = `
+      <div class="app-icon-wrap" style="background:${iconBg}">${app.icon}</div>
+      <div class="app-name">${app.name}</div>
+      <div class="app-cat-label">${CAT_LABELS[app.cat] || app.cat}</div>
+      <div class="app-platforms">${platforms.join('')}</div>
+      <div class="app-desc" style="font-size:.8rem;color:var(--muted);margin-bottom:.8rem;line-height:1.5">${app.desc}</div>
+      <button class="dl-btn ${btnClass}${hasLink ? '' : ' no-link'}"
+        onclick="${hasLink ? `openModal(${JSON.stringify(app.name)},${JSON.stringify(app.icon)},${JSON.stringify(app.desc)},${JSON.stringify(app.platform)},${JSON.stringify(app.cat)},${JSON.stringify(app.link)})` : 'showNoLink(event)'}">
+        <i class="fas fa-download"></i> ডাউনলোড করুন
+      </button>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+function showNoLink(e) {
+  e.target.innerHTML = '<i class="fas fa-clock"></i> শীঘ্রই আসছে...';
+  setTimeout(() => { e.target.innerHTML = '<i class="fas fa-download"></i> ডাউনলোড করুন'; }, 2000);
+}
+
+function switchPlatform(p) {
+  curPlatform = p;
+  ['all','android','windows'].forEach(x => document.getElementById('tab-'+x).classList.remove('active'));
+  document.getElementById('tab-'+p).classList.add('active');
+  renderApps(getFiltered());
+  document.getElementById('apps').scrollIntoView({behavior:'smooth'});
+}
+
+function switchCat(c, btn) {
+  curCat = c;
+  document.querySelectorAll('.cat-filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderApps(getFiltered());
+}
+
+function jumpCat(c) {
+  curCat = c;
+  document.querySelectorAll('.cat-filter-btn').forEach(b => {
+    b.classList.toggle('active', b.textContent.toLowerCase().includes(c) || (c==='all' && b.textContent==='সব'));
+  });
+  renderApps(getFiltered());
+  document.getElementById('apps').scrollIntoView({behavior:'smooth'});
+}
+
+// Modal
+function openModal(name, icon, desc, platform, cat, link) {
+  document.getElementById('mIcon').textContent = icon;
+  document.getElementById('mTitle').textContent = name;
+  document.getElementById('mDesc').textContent = desc;
+  document.getElementById('mCat').textContent = CAT_LABELS[cat] || cat;
+  const platMap = {android:'Android', windows:'Windows', both:'Android & Windows'};
+  document.getElementById('mPlat').textContent = platMap[platform] || platform;
+  const hasLink = link && link.trim() !== '';
+  const btn = document.getElementById('mBtn');
+  const noLink = document.getElementById('mNoLink');
+  if (hasLink) {
+    btn.href = link;
+    btn.style.display = 'flex';
+    btn.classList.remove('modal-no-link');
+    noLink.style.display = 'none';
+  } else {
+    btn.style.display = 'none';
+    noLink.style.display = 'block';
+  }
+  document.getElementById('modalOverlay').classList.add('active');
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('active');
+}
+
+// Search
+function openSearch() {
+  document.getElementById('searchOverlay').classList.add('active');
+  setTimeout(() => document.getElementById('searchInput').focus(), 100);
+}
+function closeSearch() {
+  document.getElementById('searchOverlay').classList.remove('active');
+  curSearch = '';
+  document.getElementById('searchInput').value = '';
+  document.getElementById('searchResults').innerHTML = '';
+  renderApps(getFiltered());
+}
+function handleSearch(val) {
+  curSearch = val;
+  const results = val ? APPS.filter(a => a.name.toLowerCase().includes(val.toLowerCase())).slice(0, 8) : [];
+  const container = document.getElementById('searchResults');
+  container.innerHTML = '';
+  results.forEach(app => {
+    const item = document.createElement('div');
+    item.className = 'search-result-item';
+    item.innerHTML = `<div class="sri-icon">${app.icon}</div><div class="sri-info"><div class="sri-name">${app.name}</div><div class="sri-cat">${CAT_LABELS[app.cat] || app.cat}</div></div><i class="fas fa-arrow-right" style="color:var(--muted)"></i>`;
+    item.onclick = () => {
+      closeSearch();
+      document.getElementById('apps').scrollIntoView({behavior:'smooth'});
+    };
+    container.appendChild(item);
+  });
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') { closeModal(); closeSearch(); }
+});
+
+// Init
+renderApps(APPS);
+</script>
+</body>
+</html>
